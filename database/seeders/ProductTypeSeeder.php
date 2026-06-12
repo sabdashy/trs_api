@@ -15,11 +15,14 @@ class ProductTypeSeeder extends Seeder
         // Isian sesuai form: name
         $productTypes = [
             [
-                'name' => '',
+                'name' => 'Product',
             ],
-            // [
-            //     'name' => '',
-            // ],
+            [
+                'name' => 'Jasa',
+            ],
+            [
+                'name' => 'Maintenance',
+            ],
         ];
 
         foreach ($productTypes as $productType) {
