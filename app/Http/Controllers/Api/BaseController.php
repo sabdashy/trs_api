@@ -13,6 +13,7 @@ class BaseController extends Controller
     ) {
         return response()->json([
             'success' => true,
+            'code' => $status,
             'message' => $message,
             'data' => $data
         ], $status);
@@ -25,6 +26,7 @@ class BaseController extends Controller
     ) {
         return response()->json([
             'success' => false,
+            'code' => $status,
             'message' => $message,
             'errors' => $errors
         ], $status);
@@ -36,6 +38,7 @@ class BaseController extends Controller
     ) {
         return response()->json([
             'success' => true,
+            'code' => 200,
             'message' => $message,
             'data' => $paginatedData->items(),
             'pagination' => [

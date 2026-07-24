@@ -88,6 +88,11 @@ class DashboardController extends BaseController
 
     public function financialReport(Request $request)
     {
+        $request->validate([
+            'start_date' => 'nullable|date|date_format:Y-m-d',
+            'end_date'   => 'nullable|date|date_format:Y-m-d|after_or_equal:start_date',
+        ]);
+
         $query = SalesTransaction::query();
 
         // Filter date range
@@ -97,6 +102,17 @@ class DashboardController extends BaseController
                 $request->start_date,
                 $request->end_date
             ]);
+        }
+
+        // Cek apakah ada data
+        if ((clone $query)->doesntExist()) {
+            return $this->successResponse([
+                'income'           => 0,
+                'purchase_cost'    => 0,
+                'tax'              => 0,
+                'operational_cost' => 0,
+                'net_profit'       => 0
+            ], 'Tidak ada transaksi pada rentang tanggal tersebut');
         }
 
         // Income

@@ -19,6 +19,7 @@ class RoleMiddleware
 
         return response()->json([
             'success' => false,
+            'code' => 401,
             'message' => 'Unauthenticated'
         ], 401);
     }
@@ -27,7 +28,8 @@ class RoleMiddleware
 
         return response()->json([
             'success' => false,
-            'message' => 'Forbidden'
+            'code' => 403,
+            'message' => "Akses ditolak. Endpoint ini hanya untuk role '{$role}'."
         ], 403);
     }
 

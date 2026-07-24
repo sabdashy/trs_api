@@ -60,21 +60,25 @@ Route::middleware('auth:sanctum')->group(function () {
         // DELETE pindah ke role:owner group di bawah
     });
 
-    // PRODUCT TYPE — finance hanya READ. Create/Update/Delete = owner only
+    // PRODUCT TYPE — ffinance bisa CRUD kecuali delete
     Route::prefix('product-types')->group(function () {
         Route::get('/', [ProductTypeController::class, 'index']);
         Route::get('/{id}', [ProductTypeController::class, 'show']);
-        // POST/PUT/DELETE pindah ke role:owner di bawah
+        Route::post('/', [ProductTypeController::class, 'store']);
+        Route::put('/{id}', [ProductTypeController::class, 'update']);
+        // DELETE pindah ke role:owner di bawah
     });
 
-    // EXPEDITION — finance hanya READ (+ dropdown untuk form transaksi).
-    // Create/Update/Delete = owner only
+    // EXPEDITION — finance bisa CRUD kecuali delete
+    // Delete = owner only
     Route::prefix('expeditions')->group(function () {
         Route::get('/', [ExpeditionController::class, 'index']);
+        Route::post('/', [ExpeditionController::class, 'store']);
+        Route::put('/{id}', [ExpeditionController::class, 'update']);
         // /dropdown HARUS sebelum /{id} supaya tidak ke-catch dynamic route
         Route::get('/dropdown', [ExpeditionController::class, 'dropdown']);
         Route::get('/{id}', [ExpeditionController::class, 'show']);
-        // POST/PUT/DELETE pindah ke role:owner di bawah
+        // DELETE pindah ke role:owner di bawah
     });
 
     // PRODUCT — finance hanya READ. Create/Update/Delete = owner only
@@ -121,19 +125,15 @@ Route::middleware(['auth:sanctum', 'role:owner'])->group(function () {
         Route::delete('/{id}', [UserController::class, 'destroy']);
     });
 
-    // MASTER PRODUCT TYPE — Create/Update/Delete (finance hanya READ)
-    Route::post('/product-types', [ProductTypeController::class, 'store']);
-    Route::put('/product-types/{id}', [ProductTypeController::class, 'update']);
+    // MASTER PRODUCT TYPE — Delete 
     Route::delete('/product-types/{id}', [ProductTypeController::class, 'destroy']);
 
-    // MASTER PRODUCT — Create/Update/Delete (finance hanya READ)
+    // MASTER PRODUCT — Create/Update/Delete 
     Route::post('/products', [ProductController::class, 'store']);
     Route::put('/products/{id}', [ProductController::class, 'update']);
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
-    // MASTER EXPEDITION — Create/Update/Delete (finance hanya READ + dropdown)
-    Route::post('/expeditions', [ExpeditionController::class, 'store']);
-    Route::put('/expeditions/{id}', [ExpeditionController::class, 'update']);
+    // MASTER EXPEDITION — Delete
     Route::delete('/expeditions/{id}', [ExpeditionController::class, 'destroy']);
 
     // DELETE customer & transaction — owner approval (irreversible)

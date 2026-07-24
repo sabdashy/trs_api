@@ -28,6 +28,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
+            'code' => 200,
             'token' => $token,
             'user' => $user
         ]);
@@ -52,6 +53,7 @@ class AuthController extends Controller
 
             return response()->json([
                 'success' => false,
+                'code' => 401,
                 'message' => 'Invalid credentials'
             ], 401);
         }
@@ -60,6 +62,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
+            'code' => 200,
             'token' => $token,
             'user' => $user
         ]);
@@ -73,6 +76,7 @@ class AuthController extends Controller
 
         return response()->json([
             'success' => true,
+            'code' => 200,
             'message' => 'Logout success'
         ]);
     }
@@ -81,6 +85,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'success' => true,
+            'code' => 200,
             'user' => $request->user()
         ]);
     }

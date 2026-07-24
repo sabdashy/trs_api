@@ -343,10 +343,10 @@ class SalesTransactionController extends BaseController
      * Update STATUS transaksi (state machine transition).
      *
      * Aturan transisi yang valid (dari → ke):
-     *   quotation  → pre_order, cancelled
-     *   pre_order  → processing, cancelled
-     *   processing → shipping, cancelled
-     *   shipping   → completed, cancelled
+     *   quotation  → pre_order
+     *   pre_order  → processing
+     *   processing → shipping
+     *   shipping   → completed
      *   completed  → (terminal, tidak bisa pindah)
      *   cancelled  → (terminal, tidak bisa pindah)
      *
